@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cotiza tu piñata – Bbbom</title>
+<style>body{margin:0;background:#fff8f1;color:#2b1d2e;font:16px/1.4 system-ui,sans-serif}main{max-width:480px;margin:auto;padding:16px}img{display:block;margin:0 auto 8px;height:110px}
+label{display:block;font-size:13px;color:#7a6a7d;margin:10px 0 3px}input,select,textarea{width:100%;font:inherit;padding:11px;border:1px solid #f0e1d5;border-radius:10px;background:#fff;box-sizing:border-box}
+button{width:100%;margin-top:16px;font:inherit;font-weight:700;border:0;border-radius:12px;padding:13px;background:#2e3a8c;color:#fff}.h{position:absolute;left:-999px}#m{margin-top:12px;font-weight:600}</style></head><body><main>
+<img src="logo.png" alt="Bbbom"><h2 style="text-align:center;color:#2e3a8c;margin:4px 0">Cotiza tu piñata</h2><p style="text-align:center;color:#7a6a7d;margin:0 0 6px">Cuéntanos qué necesitas y te escribimos por WhatsApp.</p>
+<label>Tu nombre<input id="n" maxlength="80"></label><label>WhatsApp<input id="t" type="tel" inputmode="tel" maxlength="20"></label>
+<label>Tipo<select id="ti"><option>Giratoria</option><option>Cuadrada</option><option>Número</option><option>Vestido</option><option>Gigante</option><option>Otra</option></select></label>
+<label>Tamaño<select id="ta"><option>Mini</option><option>Pequeña</option><option selected>Mediana</option><option>Grande</option><option>Gigante</option></select></label>
+<label>Fecha del evento<input id="f" type="date"></label><label>Detalles (tema, personaje, colores)<textarea id="d" rows="4" maxlength="1000"></textarea></label>
+<input class="h" id="w" tabindex="-1" autocomplete="off"><button id="b">Enviar cotización</button><div id="m"></div></main>
+<script>const U='https://qvfpdoecusvtjzcfajht.supabase.co',K='sb_publishable_13YqAUMswSS1N-V1nd160Q_Ro8PUDNo',$=i=>document.getElementById(i);
+$('b').onclick=async()=>{const m=$('m');if(!$('n').value.trim()||!$('t').value.trim()){m.textContent='Escribe tu nombre y tu WhatsApp';return}
+if($('w').value){m.textContent='✅ ¡Enviado!';return}$('b').disabled=true;m.textContent='Enviando…';
+try{const r=await fetch(U+'/rest/v1/cotizaciones',{method:'POST',headers:{apikey:K,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({nombre:$('n').value.trim(),telefono:$('t').value.trim(),tipo:$('ti').value,tamano:$('ta').value,fecha_evento:$('f').value||null,detalle:$('d').value.trim()})});
+if(!r.ok)throw 0;m.textContent='✅ ¡Listo! Te escribiremos pronto por WhatsApp.';$('b').style.display='none'}catch(e){m.textContent='No se pudo enviar. Revisa tu internet e inténtalo de nuevo.';$('b').disabled=false}};</script></body></html>
