@@ -8,7 +8,7 @@ button{width:100%;margin-top:16px;font:inherit;font-weight:700;border:0;border-r
 <label>Tamaño<select id="ta"><option>Mini</option><option>Pequeña</option><option selected>Mediana</option><option>Grande</option><option>Gigante</option></select></label>
 <label>Fecha del evento<input id="f" type="date"></label><label>Detalles (tema, personaje, colores)<textarea id="d" rows="4" maxlength="1000"></textarea></label>
 <input class="h" id="w" tabindex="-1" autocomplete="off"><button id="b">Enviar cotización</button><div id="m"></div></main>
-<script>const U='https://qvfpdoecusvtjzcfajht.supabase.co',K='sb_publishable_13YqAUMswSS1N-V1nd160Q_Ro8PUDNo',$=i=>document.getElementById(i);
+<script>const U='https://fxuitkjgbjhbkzhfzyfv.supabase.co',K='sb_publishable_9IGS9Z6OeP_1TM_piiPqYQ_PpCW2bK8',$=i=>document.getElementById(i);
 $('b').onclick=async()=>{const m=$('m');if(!$('n').value.trim()||!$('t').value.trim()){m.textContent='Escribe tu nombre y tu WhatsApp';return}
 if($('w').value){m.textContent='✅ ¡Enviado!';return}$('b').disabled=true;m.textContent='Enviando…';
 try{const r=await fetch(U+'/rest/v1/cotizaciones',{method:'POST',headers:{apikey:K,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({nombre:$('n').value.trim(),telefono:$('t').value.trim(),tipo:$('ti').value,tamano:$('ta').value,fecha_evento:$('f').value||null,detalle:$('d').value.trim()})});
