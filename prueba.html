@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Prueba Bbbom</title></head>
+<body style="font:16px system-ui;padding:16px;max-width:480px;margin:auto"><h2>Prueba de acceso</h2>
+<select id="a" style="font-size:18px;padding:8px"><option value="admin@bbbom.app">Super administrador</option><option value="gerente@bbbom.app">Gerente</option></select><br><br>
+<input id="pin" type="tel" maxlength="4" placeholder="PIN" style="font-size:24px;padding:8px;width:120px"><br><br>
+<button id="go" style="font-size:18px;padding:10px 18px">Probar</button><pre id="out" style="white-space:pre-wrap;word-break:break-all;margin-top:16px"></pre>
+<script>const U='https://fxuitkjgbjhbkzhfzyfv.supabase.co',K='sb_publishable_9IGS9Z6OeP_1TM_piiPqYQ_PpCW2bK8',o=document.getElementById('out');
+document.getElementById('go').onclick=async()=>{o.textContent='Probando...\nProyecto: '+U.slice(8,14);
+try{const r=await fetch(U+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:K,'Content-Type':'application/json'},body:JSON.stringify({email:document.getElementById('a').value,password:'bb'+document.getElementById('pin').value})});
+const j=await r.json();let t='Proyecto: '+U.slice(8,14)+'\nLogin: HTTP '+r.status+'\n';
+if(!r.ok){o.textContent=t+'❌ '+(j.error_code||j.code||'')+' · '+(j.error_description||j.msg||j.message||JSON.stringify(j));return}
+let rol='?';try{rol=JSON.parse(atob(j.access_token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).app_metadata.rol}catch(e){}
+t+='✅ Entró. Rol: '+rol+'\n';
+const q=await fetch(U+'/rest/v1/bbbom?select=id&limit=1',{headers:{apikey:K,Authorization:'Bearer '+j.access_token}});
+t+='Tabla bbbom: HTTP '+q.status+(q.ok?' ✅':' ❌ '+(await q.text()));o.textContent=t}
+catch(e){o.textContent='❌ No se pudo conectar: '+e.message}};</script></body></html>
